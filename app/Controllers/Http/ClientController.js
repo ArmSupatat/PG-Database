@@ -1,7 +1,6 @@
 'use strict'
 const Database = use('Database')
 const Hash = use('Hash')
-const Validator = use('Validator')
 const Client = use('App/Models/Client')
 const ClientValidator = require("../../../service/ClientValidator")
 
