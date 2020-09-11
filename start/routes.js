@@ -22,13 +22,7 @@ Route.get('/', () => {
 
 Route.group(() => {
 
-  // Route.resource("/clients", "ClientController")
-  Route.get('/clients', 'ClientController.index')
-  Route.get('/clients/:id', 'ClientController.index')
-  Route.post('/clients', 'ClientController.store')
-  // Route.put('/clients/:id', 'ClientController.update')
-  // Route.patch('/clients/:id', 'ClientController.update')
-  // Route.delete('/clients:id', 'ClientController.destroy')
+  Route.resource('/clients','ClientController')
 
   // Route.resource("/posts", "PostController")
   Route.get('/posts', 'PostController.index')
