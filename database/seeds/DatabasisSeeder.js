@@ -15,33 +15,27 @@ const Factory = use('Factory')
 
 class DatabasisSeeder {
   async run() {
-    
-    const teachers = await Factory
-      .model('App/Models/Teacher')
-      .createMany(10)
 
-    const subjects = await Factory
-      .model('App/Models/Subject')
-      .makeMany(20)
+    const clents = await Factory.model('App/Models/Client').createMany(10)
 
-    const groups = await Factory
-      .model('App/Models/Group')
-      .createMany(100)
+    const posts = await Factory.model('App/Models/Post').createMany(10)
 
-    let currentSubjectIndex = 0;
-    const subjectPerIteration = 2;
+    const comments = await Factory.model('App/Models/Comment').createMany(10)
 
-    for (const teacher of teachers) {
-      const selectedSubjects = subjects.slice(
-        currentSubjectIndex,
-        currentSubjectIndex + subjectPerIteration
-      )
-      await teacher
-        .subjects()
-        .saveMany(selectedSubjects)
+    // let currentSubjectIndex = 0;
+    // const subjectPerIteration = 2;
 
-      currentSubjectIndex += subjectPerIteration
-    }
+    // for (const teacher of teachers) {
+    //   const selectedSubjects = subjects.slice(
+    //     currentSubjectIndex,
+    //     currentSubjectIndex + subjectPerIteration
+    //   )
+    //   await teacher
+    //     .subjects()
+    //     .saveMany(selectedSubjects)
+
+    //   currentSubjectIndex += subjectPerIteration
+    // }
   }
 }
 

@@ -27,20 +27,20 @@ Factory.blueprint('App/Models/Client', (faker) => {
         username: faker.username(),
         password: faker.password(),
         email: faker.email(),
-        contact: faker.contact()
+        contact: faker.phone()
     }
 })
 
 Factory.blueprint('App/Models/Post', (faker) => {
     return {
-        party_size: faker.integer({ min: -5, max: 5 }),
-        title: faker.(),
-        details: faker.()
+        party_size: faker.integer({ min: 1 , max: 5 }),
+        title: faker.word(),
+        details: faker.paragraph({ sentences: 1 })
     }
 })
 
 Factory.blueprint('App/Models/Comment', (faker) => {
     return {
-        comment: faker.()
+        comment: faker.sentence({ words: 5 })
     }
 })

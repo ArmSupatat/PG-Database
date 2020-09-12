@@ -15,6 +15,14 @@ class Comment extends Model {
     posts() {
         return this.belongsTo('App/Models/Post')
     }
+
+    static get createdAtColumn(){
+        return null
+    }
+
+    static get updatedAtColumn(){
+        return null
+    }
 }
 
 module.exports = Comment

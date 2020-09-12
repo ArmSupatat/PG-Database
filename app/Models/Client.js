@@ -15,6 +15,19 @@ class Client extends Model {
     comments() {
         return this.hasMany('App/Models/Comment');
     }
+
+    static get createdAtColumn(){
+        return null
+    }
+
+    static get updatedAtColumn(){
+        return null
+    }
+
+    clients(){
+        return this
+        .hasMany('App/Models/Posts')
+    }
 }
 
 module.exports = Client
