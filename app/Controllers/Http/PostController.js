@@ -28,7 +28,7 @@ class PostController {
         if (validatedValue.error)
           return { status: 500, error: validatedValue.error, data: undefined }
     
-        const post = await Client.find(id)
+        const post = await Post.find(id)
     
         return { status: 200, error: undefined, data: post || {} }
       }
@@ -63,7 +63,7 @@ class PostController {
           .where({ post_id: postId })
           .first()
     
-        return { status: 200, error: undefined, data: post }
+        return { status: 200, error: undefined, data: { party_size, title, details } }
       }
     
       async destroy({ request }) {
