@@ -26,12 +26,6 @@ Route.group(() => {
 
   Route.resource("/posts", "PostController")
 
-  // Route.resource("/comments", "commentController")
-  Route.get('/comments', 'CommentController.index')
-  Route.get('/comments/:id', 'CommentController.index')
-  Route.post('/comments', 'CommentController.store')
-  // Route.put('/comments/:id', 'CommentController.update')
-  // Route.patch('/comments/:id', 'CommentController.update')
-  // Route.delete('/comments:id', 'CommentController.destroy')
+  Route.resource("/comments", "CommentController")
 
 })
