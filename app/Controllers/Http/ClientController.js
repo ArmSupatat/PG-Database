@@ -34,19 +34,19 @@ class ClientController {
         return { status: 200, error: undefined, data: client || {} }
     }
 
-    async store({ request }) {
+    async store ({ request }) {
         const { username, password, email, contact } = request.body
-
+    
         const validatedData = await ClientValidator(request.body)
-
+    
         if (validatedData.error)
-            return { status: 422, error: validatedData.error, data: undefined }
-
+          return { status: 422, error: validatedData.error, data: undefined }
+    
         const client = await Client
-            .create({ username, password, email, contact })
-
-        return { status: 200, error: undefined, data: { username, email, contact } }
-    }
+          .create({ username, email, contact, password })
+    
+        return { status: 200, error: undefined, data: { username, password, email, contact } }
+      }
 
     async update({ request }) {
         const { body, params } = request
@@ -76,8 +76,6 @@ class ClientController {
 
         return { status: 200, error: undefined, data: { message: 'success' } }
     }
-
 }
-
 
 module.exports = ClientController
