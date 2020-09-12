@@ -1,8 +1,8 @@
 'use strict'
 const Database = use('Database')
 const Hash = use('Hash')
-const Post = use('App/Models/Client')
-const PostValidator = require("../../../service/PostValidator")
+const Post = use('App/Models/Post')
+// const PostValidator = require("../../../service/PostValidator")
 
 
 function numberTypeParamValidator(number) {
@@ -36,13 +36,14 @@ class PostController {
       async store ({ request }) {
         const { party_size, title, details } = request.body
     
-        const validatedData = await PostValidator(request.body)
+        // const validatedData = await PostValidator(request.body)
     
-        if (validatedData.error)
-          return { status: 422, error: validatedData.error, data: undefined }
+        // if (validatedData.error)
+        //   return { status: 422, error: validatedData.error, data: undefined }
     
         const post = await Post
-          .create({  party_size, title, details })
+        .query()
+        .insert({party_size, title, details})
     
         return { status: 200, error: undefined, data: {  party_size, title, details } }
       }
