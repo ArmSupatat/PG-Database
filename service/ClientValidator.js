@@ -1,6 +1,6 @@
 const Validator = use('Validator')
 
-module.exports = async function clientValidator (data) {
+module.exports = async function ClientValidator (data) {
     if (typeof data !== 'object') throw new Error()
 
     const { username, password, email, contact } = data
@@ -17,6 +17,6 @@ module.exports = async function clientValidator (data) {
     }, rules)
 
     return {
-        error: validation.message()
+        error: validation.messages()
     }
 }
