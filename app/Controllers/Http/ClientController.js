@@ -1,9 +1,10 @@
 'use strict'
 
 const Database = use('Database')
+const Hash = use('Hash')
 // const Validator = use('Validator')
 const Client = use('App/Models/Client')
-// const ClientValidator = require("../../../service/ClientValidator")
+const ClientValidator = require("../../../service/ClientValidator")
 
 function numberTypeParamValidator(number) {
     if (Number.isNaN(parseInt(number)))
@@ -36,23 +37,15 @@ class ClientController {
     async store({ request }) {
         const { username, password, email, contact } = request.body
 
-        // const rules = {
-        //     first_name:'required',
-        //     last_name:'required',
-        //     email:'required|unique:teachers,email',
-        //     password:'required|max:12'
-        // }
+        const validatedData = await ClientValidator(request.body)
 
-        // const validation = await Validator.validateAll(request.body, rules)
-
-        // if(validation.false)
-        //  return {status: 422, error: validation.message(), data: undefined}
+        if (validatedData.error)
+            return { status: 422, error: validatedData.error, data: undefined }
 
         const client = await Client
-            .query()
-            .insert({ username, password, email, contact })
+            .create({ username, password, email, contact })
 
-        return { status: 200, error: undefined, data: { username, password, email, contact } }
+        return { status: 200, error: undefined, data: { username, email, contact } }
     }
 
     async update({ request }) {

@@ -1,17 +1,15 @@
-module.exports = clientValidator
-
-
 const Validator = use('Validator')
 
-async function clientValidator ({username, password, email, contact}) {
-    
-    
+module.exports = async function clientValidator (data) {
+    if (typeof data !== 'object') throw new Error()
+
+    const { username, password, email, contact } = data
+
     const rules = {
         username:'required|unique:clients,username',
-        password:'required',
-        email:'required|unique:teachers,email',
+        password:'required|min:8',
+        email:'required|unique:clients,email',
         contact:'required'
-        
     }
 
     const validation = await Validator.validateAll({
