@@ -13,7 +13,7 @@ class Post extends Model {
     }
 
     comments() {
-        return this.belongsTo('App/Models/Comment')
+        return this.hasMany('App/Models/Comment')
     }
 }
 
