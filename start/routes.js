@@ -24,13 +24,7 @@ Route.group(() => {
 
   Route.resource('/clients','ClientController')
 
-  // Route.resource("/posts", "PostController")
-  Route.get('/posts', 'PostController.index')
-  Route.get('/posts/:id', 'PostController.index')
-  Route.post('/posts', 'PostController.store')
-  // Route.put('/posts/:id', 'PostController.update')
-  // Route.patch('/posts/:id', 'PostController.update')
-  // Route.delete('/posts:id', 'PostController.destroy')
+  Route.resource("/posts", "PostController")
 
   // Route.resource("/comments", "commentController")
   Route.get('/comments', 'CommentController.index')
