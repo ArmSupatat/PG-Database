@@ -16,6 +16,14 @@ class Post extends Model {
         return this.hasMany('App/Models/Comment')
     }
 
+    static get createdAtColumn(){
+        return null
+    }
+
+    static get updatedAtColumn(){
+        return null
+    }
+
     posts(){
         return this
         .belongsToMany('App/Models/Client')
