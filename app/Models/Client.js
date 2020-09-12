@@ -15,6 +15,11 @@ class Client extends Model {
     comments() {
         return this.hasMany('App/Models/Comment');
     }
+
+    clients(){
+        return this
+        .hasMany('App/Models/Posts')
+    }
 }
 
 module.exports = Client

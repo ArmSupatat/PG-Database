@@ -15,6 +15,12 @@ class Post extends Model {
     comments() {
         return this.hasMany('App/Models/Comment')
     }
+
+    posts(){
+        return this
+        .belongsToMany('App/Models/Client')
+        .pivotModel('App/Models/Posts')
+    }
 }
 
 module.exports = Post
