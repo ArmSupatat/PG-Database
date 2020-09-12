@@ -34,10 +34,10 @@ class PostController {
       async store ({ request }) {
         const { party_size, title, details } = request.body
     
-        const validatedData = await ClientValidator(request.body)
+        // const validatedData = await PostValidator(request.body)
     
-        if (validatedData.error)
-          return { status: 422, error: validatedData.error, data: undefined }
+        // if (validatedData.error)
+        //   return { status: 422, error: validatedData.error, data: undefined }
     
         const post = await Post
           .create({  party_size, title, details })
