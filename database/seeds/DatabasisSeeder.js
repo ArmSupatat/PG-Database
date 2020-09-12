@@ -18,9 +18,9 @@ class DatabasisSeeder {
 
     const clents = await Factory.model('App/Models/Client').createMany(10)
 
-    const posts = await Factory.model('App/Models/Post').createMany(20)
+    const posts = await Factory.model('App/Models/Post').createMany(10)
 
-    const comments = await Factory.model('App/Models/Comment').createMany(100)
+    const comments = await Factory.model('App/Models/Comment').createMany(10)
 
     // let currentSubjectIndex = 0;
     // const subjectPerIteration = 2;
