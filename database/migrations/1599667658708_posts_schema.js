@@ -10,8 +10,10 @@ class PostsSchema extends Schema {
       table.integer("party_size", 3)
       table.string("title", 50)
       .notNullable()
-      table.timestamps("timestamps")
       table.string("details", 150)
+      table.timestamp("user_timestamps").default(this.fn.now())
+      table.timestamps('')
+    
       table.integer('user_id', 5)
       .unsigned()
       table.foreign('user_id')
