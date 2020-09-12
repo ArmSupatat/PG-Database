@@ -15,6 +15,7 @@ class ClientsSchema extends Schema {
       .notNullable()
       table.string("contact", 100)
       .notNullable()
+      table.timestamps("timestamps")
     })
   }
 
