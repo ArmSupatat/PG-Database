@@ -19,3 +19,28 @@
 //     username: faker.username()
 //   }
 // })
+
+const Factory = use('Factory')
+
+Factory.blueprint('App/Models/Client', (faker) => {
+    return {
+        username: faker.username(),
+        password: faker.password(),
+        email: faker.email(),
+        contact: faker.contact()
+    }
+})
+
+Factory.blueprint('App/Models/Post', (faker) => {
+    return {
+        party_size: faker.integer({ min: -5, max: 5 }),
+        title: faker.(),
+        details: faker.()
+    }
+})
+
+Factory.blueprint('App/Models/Comment', (faker) => {
+    return {
+        comment: faker.()
+    }
+})
