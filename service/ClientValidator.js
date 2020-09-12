@@ -1,7 +1,7 @@
 module.exports = clientValidator
 const Validator = use('Validator')
 
-async function clientrValidator ({username, password, email, contact}) {
+async function clientValidator ({username, password, email, contact}) {
     
     
     const rules = {
