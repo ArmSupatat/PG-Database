@@ -1,16 +1,14 @@
-module.exports = postValidator
-
-
 const Validator = use('Validator')
 
-async function postValidator ({party_size, title, details}) {
-    
+module.exports = async function PostValidator (data) {
+    if (typeof data !== 'object') throw new Error()
+
+    const { party_size, title, details } = data
     
     const rules = {
-        party_size:'required',
+        party_size:'required|number',
         title:'required',
         details:'required'
-        
     }
 
     const validation = await Validator.validateAll({
@@ -18,6 +16,6 @@ async function postValidator ({party_size, title, details}) {
     }, rules)
 
     return {
-        error: validation.message()
+        error: validation.messages()
     }
 }

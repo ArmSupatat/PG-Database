@@ -3,7 +3,8 @@
 const Database = use('Database')
 const Comment = use('App/Models/Comment')
 // const Validator = use('Validator')
-// const ClientValidator = require("../../../service/ClientValidator")
+const ClientValidator = require("../../../service/ClientValidator")
+const CommentValidator = require("../../../service/CommentValidator")
 
 function numberTypeParamValidator(number) {
     if (Number.isNaN(parseInt(number)))
@@ -36,21 +37,13 @@ class CommentController {
     async store({ request }) {
         const { comment } = request.body
 
-        // const rules = {
-        //     first_name:'required',
-        //     last_name:'required',
-        //     email:'required|unique:teachers,email',
-        //     password:'required|max:12'
-        // }
+        const validatedData = await CommentValidator(request.body)
 
-        // const validation = await Validator.validateAll(request.body, rules)
-
-        // if(validation.false)
-        //  return {status: 422, error: validation.message(), data: undefined}
+        if(validatedData.error)
+         return {status: 422, error: validatedData.error, data: undefined}
 
         const user_comment = await Comment
-            .query()
-            .insert({ comment })
+            .create({ comment })
 
         return { status: 200, error: undefined, data: { comment } }
     }

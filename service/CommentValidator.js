@@ -1,14 +1,12 @@
-module.exports = commentValidator
-
-
 const Validator = use('Validator')
 
-async function commentValidator ({ comment }) {
-    
+module.exports = async function CommentValidator (data) {
+    if (typeof data !== 'object') throw new Error()
+
+    const { comment } = data
     
     const rules = {
         comment:'required'
-
     }
 
     const validation = await Validator.validateAll({
@@ -16,6 +14,6 @@ async function commentValidator ({ comment }) {
     }, rules)
 
     return {
-        error: validation.message()
+        error: validation.messages()
     }
 }
