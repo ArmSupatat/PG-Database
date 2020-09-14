@@ -8,7 +8,7 @@ module.exports = async function ClientValidator (data) {
     const rules = {
         username:'required|unique:clients,username',
         password:'required|min:8',
-        email:'required|unique:clients,email',
+        email:'required|email|unique:clients,email',
         contact:'required'
     }
 
