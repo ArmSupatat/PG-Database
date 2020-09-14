@@ -18,19 +18,19 @@ class DatabasisSeeder {
 
     const clients = await Factory.model('App/Models/Client').createMany(10)
 
-    const comments = await Factory.model('App/Models/Comment').makeMany(10)
+    const comments = await Factory.model('App/Models/Comment').createMany(10)
 
-    const posts = await Factory.model('App/Models/Post').makeMany(10)
+    const posts = await Factory.model('App/Models/Post').createMany(10)
 
-    let counter = 0;
-    const num1 = 2;
+    // let counter = 0;
+    // const num1 = 2;
 
-    for (const client of clients) {
-      const num2 = posts.slice( counter, counter + num1 )
-      await client.posts().saveMany(num2)
+    // for (const client of clients) {
+    //   const num2 = posts.slice( counter, counter + num1 )
+    //   await client.posts().saveMany(num2)
 
-      counter += num1
-    }
+    //   counter += num1
+    // }
   }
 }
 
