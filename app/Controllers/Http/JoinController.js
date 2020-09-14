@@ -36,7 +36,7 @@ class JoinController {
       async store ({ request }) {
         const { user_id, post_id } = request.body
     
-        const validatedData = await PostValidator(request.body)
+        const validatedData = await JoinValidator(request.body)
     
         if (validatedData.error)
           return { status: 422, error: validatedData.error, data: undefined }
