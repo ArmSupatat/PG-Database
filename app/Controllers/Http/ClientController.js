@@ -1,5 +1,4 @@
 'use strict'
-const Hash = use('Hash')
 const Client = use('App/Models/Client')
 const ClientUtil = require("../../../util/clientUtil")
 

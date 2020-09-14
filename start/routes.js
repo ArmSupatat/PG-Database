@@ -29,5 +29,6 @@ Route.group(() => {
   Route.resource("/comments", "CommentController")
 
   Route.resource("/client_join_posts", "JoinController")
+  Route.post('/login','AuthController.login')
 
 })
