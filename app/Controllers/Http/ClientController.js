@@ -1,6 +1,7 @@
 'use strict'
 const Client = use('App/Models/Client')
 const ClientUtil = require("../../../util/clientUtil")
+const ClientValidator = require("../../../service/ClientValidator")
 
 class ClientController {
 
@@ -22,6 +23,11 @@ class ClientController {
     async store ({ request }) {
         const { username, password, email, contact } = request.body
         const { references } = request.qs
+        const validatedData = await ClientValidator(request.body)
+
+        if (validatedData.error)
+            return {status:422,error: validatedData.error, data: undefined}
+
         const clientUtil = new ClientUtil(Client)
         const client = await clientUtil.create(request, references)
         return { status: 200, error: undefined, data: client }
