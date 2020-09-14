@@ -7,8 +7,8 @@ module.exports = async function PostValidator (data) {
     const { user_id, post_id } = data
     
     const rules = {
-        user_id:'required|number',
-        post_id:'required|number'
+        user_id:'required',
+        post_id:'required'
     }
 
     // const user_id = await Database
