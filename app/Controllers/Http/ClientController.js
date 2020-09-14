@@ -6,16 +6,9 @@ const Hash = use('Hash')
 const Client = use('App/Models/Client')
 const ClientValidator = require("../../../service/ClientValidator")
 
-function numberTypeParamValidator(number) {
-    if (Number.isNaN(parseInt(number)))
-        return { error: 'param: ${number} is not a number, please use number type param instead.' }
-    // throw new Error('Please use number as a param')
-    return {}
-}
-
 class ClientController {
 
-    async index() {
+    async index({ request }) {
         const clients = await Client.all()
 
         return { status: 200, error: undefined, data: clients }
@@ -43,7 +36,10 @@ class ClientController {
           return { status: 422, error: validatedData.error, data: undefined }
     
         const client = await Client
-          .create({ username, email, contact, password })
+          .create({ username,
+            email,
+            contact,
+            password })
     
         return { status: 200, error: undefined, data: { username, password, email, contact } }
       }
