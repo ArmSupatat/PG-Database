@@ -1,6 +1,8 @@
 'use strict'
 const Hash = use('Hash')
 const Client = use('App/Models/Client')
+const AuthValidator = require("../../../service/AuthValidator.js")
+
 class AuthController {
      async login({ request , auth }){
        const {username, password} = request.body
