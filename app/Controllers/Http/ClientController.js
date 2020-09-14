@@ -1,76 +1,45 @@
 'use strict'
-
-const Database = use('Database')
 const Hash = use('Hash')
-// const Validator = use('Validator')
 const Client = use('App/Models/Client')
-const ClientValidator = require("../../../service/ClientValidator")
+const ClientUtil = require("../../../util/clientUtil")
 
 class ClientController {
 
     async index({ request }) {
-        const clients = await Client.all()
-
-        return { status: 200, error: undefined, data: clients }
+        const { references } = request.qs
+        const clientUtil = new ClientUtil(Client)
+        const client = await clientUtil.getAll(references)
+        return { status: 200, error: undefined, data: client }
     }
 
-    async show({ request, auth }) {
+    async show({ request }) {
         const { id } = request.params
-
-        const validateValue = numberTypeParamValidator(id)
-
-        if (validateValue.error)
-            return { status: 500, error: validateValue.error, data: undefined }
-
-        const client = await Client.find()
-
-        return { status: 200, error: undefined, data: client || {} }
+        const { references } = request.qs
+        const clientUtil = new ClientUtil(Client)
+        const client = await clientUtil.getById(id, references)
+        return { status: 200, error: undefined, data: client }
     }
 
     async store ({ request }) {
         const { username, password, email, contact } = request.body
-    
-        const validatedData = await ClientValidator(request.body)
-    
-        if (validatedData.error)
-          return { status: 422, error: validatedData.error, data: undefined }
-    
-        const client = await Client
-          .create({ username,
-            email,
-            contact,
-            password })
-    
-        return { status: 200, error: undefined, data: { username, password, email, contact } }
+        const { references } = request.qs
+        const clientUtil = new ClientUtil(Client)
+        const client = await clientUtil.create(request, references)
+        return { status: 200, error: undefined, data: client }
       }
 
     async update({ request }) {
-        const { body, params } = request
-        const { id } = params
-        const { username, email, contact } = body
-
-        const clientId = await Database
-            .table('clients')
-            .where({ user_id: id })
-            .update({ username, email, contact })
-
-        const client = await Database
-            .table('clients')
-            .where({ user_id: clientId })
-            .first()
-
-        return { status: 200, error: undefined, data: { username, email, contact } }
+        const { references = undefined } = request.qs
+        const clientUtil = new ClientUtil(Client)
+        const client = await clientUtil.update(request, references)
+        return { status: 200, error: undefined, data: client }
     }
 
     async destroy({ request }) {
-        const { id } = request.params
-
-        await Database
-            .table('clients')
-            .where({ user_id: id })
-            .delete()
-
-        return { status: 200, error: undefined, data: { message: 'success' } }
+        const { references = undefined } = request.qs
+        const clientUtil = new ClientUtil(Client)
+        const client = await clientUtil.deleteById(request, references)
+        return { status: 200, error: undefined, data: client }
     }
 }
 
