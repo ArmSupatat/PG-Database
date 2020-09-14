@@ -1,5 +1,5 @@
 // const Client = use("App/Models/Client")
-const clientValidator = require("../service/ClientValidator")
+// const clientValidator = require("../service/ClientValidator")
 
 class ClientUtil {
 
@@ -64,7 +64,7 @@ class ClientUtil {
           }
           clients.delete()
           await clients.save();
-          return {status : 200 ,error : undefined , data : 'complete'};
+          return {status : 200 ,error : undefined , data : 'success'};
       } 
 }
 
