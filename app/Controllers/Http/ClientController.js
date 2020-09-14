@@ -45,7 +45,7 @@ class ClientController {
         const client = await Client
           .create({ username, email, contact, password })
     
-        return { status: 200, error: undefined, data: { username, password, email, contact } }
+        return { status: 200, error: undefined, data: { username, email, contact } }
       }
 
     async update({ request }) {
