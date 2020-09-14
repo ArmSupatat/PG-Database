@@ -28,4 +28,6 @@ Route.group(() => {
 
   Route.resource("/comments", "CommentController")
 
+  Route.post('/login','AuthController.login')
+
 })
