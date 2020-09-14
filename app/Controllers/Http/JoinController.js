@@ -1,6 +1,5 @@
 'use strict'
 const Database = use('Database')
-const Hash = use('Hash')
 const Join = use('App/Models/Join')
 const JoinValidator = require("../../../service/JoinValidator.js")
 

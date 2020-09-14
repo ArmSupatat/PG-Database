@@ -1,6 +1,5 @@
 'use strict'
 const Database = use('Database')
-const Hash = use('Hash')
 const Post = use('App/Models/Post')
 const PostValidator = require("../../../service/PostValidator")
 

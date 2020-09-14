@@ -1,8 +1,6 @@
 'use strict'
 
 const Database = use('Database')
-const Hash = use('Hash')
-// const Validator = use('Validator')
 const Client = use('App/Models/Client')
 const ClientValidator = require("../../../service/ClientValidator")
 
@@ -43,7 +41,7 @@ class ClientController {
           return { status: 422, error: validatedData.error, data: undefined }
     
         const client = await Client
-          .create({ username, email, contact, password })
+          .create({ username, email, contact, password }) 
     
         return { status: 200, error: undefined, data: { username, email, contact } }
       }

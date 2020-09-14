@@ -2,7 +2,6 @@
 
 const Database = use('Database')
 const Comment = use('App/Models/Comment')
-// const Validator = use('Validator')
 const ClientValidator = require("../../../service/ClientValidator")
 const CommentValidator = require("../../../service/CommentValidator")
 
