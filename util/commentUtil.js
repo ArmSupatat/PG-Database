@@ -34,7 +34,7 @@ class CommentUtil {
                 .fetch()
                 .then(response => response.first())
     }
-      async create (clientInstance, references) {
+      async create (commentInstance, references) {
           const { comment_id } = await this._Comment.create(commentInstance.body)
           const comment = this._Comment
             .query()
@@ -50,8 +50,8 @@ class CommentUtil {
           if(!comments){
               return {status : 500 ,error : `Not Found ${id}` , data : undefined};
           }
-          comment.merge(commentInstance.body)
-          await clients.save();
+          comments.merge(commentInstance.body)
+          await comments.save();
       
           comments = this._Comment.query().where({comment_id : id})
           return this._withReference(comments,references).fetch().then(response => response.first())
