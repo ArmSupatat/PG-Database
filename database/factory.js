@@ -14,6 +14,7 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 
 const Factory = use('Factory')
+const Logger = use('Logger')
 
 Factory.blueprint('App/Models/Client', (faker) => {
     return {
@@ -37,3 +38,10 @@ Factory.blueprint('App/Models/Comment', (faker) => {
         comment: faker.sentence({ words: 5 })
     }
 })
+
+// Factory.blueprint('App/Models/Join', (faker, i ,data) => {
+//     return {    
+//         user_id : (data.user_id ) && data.user_id [i] || faker.natural(),
+//         post_id : (data.post_id ) && data.post_id [i] || faker.natural()
+//     }
+//     })

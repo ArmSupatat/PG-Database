@@ -38,6 +38,9 @@ class Client extends Model {
         return this
         .hasMany('App/Models/Posts')
     }
+    join(){
+        return this.hasMany('App/Models/Join')
+    }
 }
 
 module.exports = Client
