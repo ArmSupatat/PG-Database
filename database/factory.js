@@ -28,8 +28,9 @@ Factory.blueprint('App/Models/Client', (faker) => {
 Factory.blueprint('App/Models/Post', (faker) => {
     return {
         party_size: faker.integer({ min: 1 , max: 5 }),
-        title: faker.word(),
-        details: faker.paragraph({ sentences: 1 })
+        title: 'Apex',
+        details: faker.paragraph({ sentences: 1 }),
+        date: new Date().toLocaleString()
     }
 })
 
@@ -40,7 +41,7 @@ Factory.blueprint('App/Models/Comment', (faker) => {
 })
 
 // Factory.blueprint('App/Models/Join', (faker, i ,data) => {
-//     return {    
+//     return {
 //         user_id : (data.user_id ) && data.user_id [i] || faker.natural(),
 //         post_id : (data.post_id ) && data.post_id [i] || faker.natural()
 //     }
