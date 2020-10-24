@@ -1,5 +1,7 @@
 'use strict'
 
+const ClientsSchema = require('../migrations/1599667626995_clients_schema')
+
 /*
 |--------------------------------------------------------------------------
 | DatabasisSeeder
@@ -12,6 +14,8 @@
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
+const Client = use('App/Models/Client')
+const Post = use('App/Models/Post')
 
 class DatabasisSeeder {
   async run() {
@@ -20,17 +24,30 @@ class DatabasisSeeder {
 
     const comments = await Factory.model('App/Models/Comment').createMany(10)
 
-    const posts = await Factory.model('App/Models/Post').createMany(10)
+    // const UserIds = await Client
+    //   .find()
 
-    // let counter = 0;
-    // const num1 = 2;
+    // const PostIds = await Post
+    //   .find()
 
-    // for (const client of clients) {
-    //   const num2 = posts.slice( counter, counter + num1 )
-    //   await client.posts().saveMany(num2)
+    const joins = await Factory.model('App/Model/Join').makeMany(10)
 
-    //   counter += num1
-    // }
+    let currentJoinIndex = 0;
+    const clientPerPost = 2;
+
+    for (const join of joins) {
+      const selectedPosts = clients.slice(
+        currentJoinIndex,
+        currentJoinIndex + clientPerPost
+      )
+      await join
+        .posts()
+        .saveMany(selectedPosts)
+
+        currentJoinIndex += clientPerPost
+    }
+
+
   }
 }
 

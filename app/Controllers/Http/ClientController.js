@@ -14,23 +14,29 @@ class ClientController {
 
     async show({ request }) {
         const { id } = request.params
-        const { references } = request.qs
-        const clientUtil = new ClientUtil(Client)
-        const client = await clientUtil.getById(id, references)
-        return { status: 200, error: undefined, data: client }
+
+        const validateValue = numberTypeParamValidator(id)
+
+        if (validateValue.error)
+            return { status: 500, error: validateValue.error, data: undefined }
+
+        const client = await Client.find(id)
+
+        return { status: 200, error: undefined, data: client || {} }
     }
 
     async store ({ request }) {
         const { username, password, email, contact } = request.body
-        const { references } = request.qs
+
         const validatedData = await ClientValidator(request.body)
 
         if (validatedData.error)
-            return {status:422,error: validatedData.error, data: undefined}
+          return { status: 422, error: validatedData.error, data: undefined }
 
-        const clientUtil = new ClientUtil(Client)
-        const client = await clientUtil.create(request, references)
-        return { status: 200, error: undefined, data: client }
+        const client = await Client
+          .create({ username, email, contact, password })
+
+        return { status: 200, error: undefined, data: { username, email, contact } }
       }
 
     async update({ request }) {
