@@ -11,14 +11,15 @@ class PostsSchema extends Schema {
       table.string("title", 50)
       .notNullable()
       table.string("details", 150)
+      table.string("date")
       table.timestamp("user_timestamps").default(this.fn.now())
       table.timestamps('')
-    
+
       table.integer('user_id', 5)
       .unsigned()
       table.foreign('user_id')
       .references('clients.user_id')
-      .onDelete('CASCADE') 
+      .onDelete('CASCADE')
       .onUpdate('CASCADE')
 
     })

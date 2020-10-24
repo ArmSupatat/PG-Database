@@ -14,7 +14,7 @@ class ClienttUtil {
         return clients.fetch()
     }
 
-    getById(references){
+    getById(clientId, references){
         const client = this._Client.query()
 
         if (references){

@@ -27,22 +27,22 @@ class ClientController {
         if (validateValue.error)
             return { status: 500, error: validateValue.error, data: undefined }
 
-        const client = await Client.find()
+        const client = await Client.find(id)
 
         return { status: 200, error: undefined, data: client || {} }
     }
 
     async store ({ request }) {
         const { username, password, email, contact } = request.body
-    
+
         const validatedData = await ClientValidator(request.body)
-    
+
         if (validatedData.error)
           return { status: 422, error: validatedData.error, data: undefined }
-    
+
         const client = await Client
-          .create({ username, email, contact, password }) 
-    
+          .create({ username, email, contact, password })
+
         return { status: 200, error: undefined, data: { username, email, contact } }
       }
 
