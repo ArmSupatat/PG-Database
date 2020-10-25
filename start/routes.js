@@ -22,7 +22,7 @@ Route.get('/', () => {
 
 Route.group(() => {
 
-  Route.resource('/clients','ClientController')
+  Route.resource('/register','ClientController')
 
   Route.resource("/posts", "PostController")
 
