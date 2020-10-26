@@ -1,79 +1,89 @@
-'use strict'
+"use strict";
 
-const Database = use('Database')
-const Client = use('App/Models/Client')
-const ClientValidator = require("../../../service/ClientValidator")
+const Database = use("Database");
+const User = use("App/Models/User");
+const UserValidator = require("../../../service/ClientValidator");
+const Hash = use("Hash");
 
 function numberTypeParamValidator(number) {
-    if (Number.isNaN(parseInt(number)))
-        return { error: 'param: ${number} is not a number, please use number type param instead.' }
-    // throw new Error('Please use number as a param')
-    return {}
+  if (Number.isNaN(parseInt(number)))
+    return {
+      error:
+        "param: ${number} is not a number, please use number type param instead.",
+    };
+  // throw new Error('Please use number as a param')
+  return {};
 }
 
-class ClientController {
+class UserController {
+  async index() {
+    const Users = await User.all();
 
-    async index() {
-        const clients = await Client.all()
+    return { status: 200, error: undefined, data: Users };
+  }
 
-        return { status: 200, error: undefined, data: clients }
-    }
+  async show({ request }) {
+    const { id } = request.params;
 
-    async show({ request, auth }) {
-        const { id } = request.params
+    const validateValue = numberTypeParamValidator(id);
 
-        const validateValue = numberTypeParamValidator(id)
+    if (validateValue.error)
+      return { status: 500, error: validateValue.error, data: undefined };
 
-        if (validateValue.error)
-            return { status: 500, error: validateValue.error, data: undefined }
+    const user = await User.find(id);
 
-        const client = await Client.find(id)
+    return { status: 200, error: undefined, data: user || {} };
+  }
 
-        return { status: 200, error: undefined, data: client || {} }
-    }
+  async store({ request, response }) {
+    const { username, password, email, contact } = request.body;
 
-    async store ({ request }) {
-        const { username, password, email, contact } = request.body
+    const validatedData = await UserValidator(request.body);
 
-        const validatedData = await ClientValidator(request.body)
+    if (validatedData.error)
+      return response
+        .status(422)
+        .send({ status: 422, error: validatedData.error, data: undefined });
 
-        if (validatedData.error)
-          return { status: 422, error: validatedData.error, data: undefined }
+    const user = await User.create({ username, email, contact, password });
 
-        const client = await Client
-          .create({ username, email, contact, password })
+    return response.send({
+      status: 200,
+      error: undefined,
+      data: {
+        username,
+        email,
+        contact
+      },
+    });
+  }
 
-        return { status: 200, error: undefined, data: { username, email, contact } }
-      }
+  async update({ request }) {
+    const { body, params } = request;
+    const { id } = params;
+    const { username, email, contact } = body;
 
-    async update({ request }) {
-        const { body, params } = request
-        const { id } = params
-        const { username, email, contact } = body
+    const UserId = await Database.table("Users")
+      .where({ user_id: id })
+      .update({ username, email, contact });
 
-        const clientId = await Database
-            .table('clients')
-            .where({ user_id: id })
-            .update({ username, email, contact })
+    const User = await Database.table("Users")
+      .where({ user_id: UserId })
+      .first();
 
-        const client = await Database
-            .table('clients')
-            .where({ user_id: clientId })
-            .first()
+    return {
+      status: 200,
+      error: undefined,
+      data: { username, email, contact },
+    };
+  }
+  async destroy({ request }) {
+    const { id } = request.params;
 
-        return { status: 200, error: undefined, data: { username, email, contact } }
-    }
+    await Database.table("Users").where({ user_id: id }).delete();
 
-    async destroy({ request }) {
-        const { id } = request.params
-
-        await Database
-            .table('clients')
-            .where({ user_id: id })
-            .delete()
-
-        return { status: 200, error: undefined, data: { message: 'success' } }
-    }
+    return { status: 200, error: undefined, data: { message: "success" } };
+  }
 }
 
-module.exports = ClientController
+module.exports = UserController;
