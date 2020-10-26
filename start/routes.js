@@ -23,6 +23,7 @@ Route.get('/', () => {
 Route.group(() => {
 
   Route.resource('/register','ClientController')
+  // Route.post('/login','ClientController.login')
 
   Route.resource("/posts", "PostController")
 
