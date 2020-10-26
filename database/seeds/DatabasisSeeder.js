@@ -20,7 +20,7 @@ const Post = use('App/Models/Post')
 class DatabasisSeeder {
   async run() {
 
-    const clents = await Factory.model('App/Models/Client').createMany(10)
+    const clents = await Factory.model('App/Models/User').createMany(10)
 
     const posts = await Factory.model('App/Models/Post').createMany(10)
 
