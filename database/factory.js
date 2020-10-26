@@ -16,7 +16,7 @@
 const Factory = use('Factory')
 const Logger = use('Logger')
 
-Factory.blueprint('App/Models/Client', (faker) => {
+Factory.blueprint('App/Models/User', (faker) => {
     return {
         username: faker.username(),
         password: faker.password(),
